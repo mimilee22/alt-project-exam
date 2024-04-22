@@ -1,0 +1,6 @@
+---
+- name: Execute Bash Script on Slave Node
+  hosts: slave
+  tasks:
+    - name: Run the bash script
+      script: setup-slave.sh
