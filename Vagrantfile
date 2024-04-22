@@ -15,16 +15,17 @@ Vagrant.configure("2") do |config|
   config.vm.define "master" do |master|
   master.vm.box = "ubuntu/focal64"
   master.vm.hostname = "master"
-  master.vm.network "private_network", ip: "192.168.33.10", type: "dhcp"
+  master.vm.network "private_network", ip: "192.168.33.11"
   master.vm.provision "shell", path: "bootstrap-master.sh"
   master.vm.provision "file", source: "setup-slave.sh", destination: "setup-slave.sh"
+  master.vm.provision "file", source: "check_server.sh", destination: "check_server.sh"
   end
   
     # Provision Slave Node
   config.vm.define "slave" do |slave|
   slave.vm.box = "ubuntu/focal64"
   slave.vm.hostname = "slave"
-  slave.vm.network "private_network", ip: "192.168.33.11", type: "dhcp"
+  slave.vm.network "private_network", ip: "192.168.33.12"
   slave.vm.network "forwarded_port", guest: 80, host: 8080
   end
 
